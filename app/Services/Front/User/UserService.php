@@ -6,6 +6,7 @@ use App\Exceptions\ValidationException;
 use App\Models\OtpCode;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -28,7 +29,7 @@ class UserService
             'usage' => 'verify',
             'expires_at' => Carbon::now()->addMinute(10)
         ]);
-        
+
         $resetCodeMsg = 'send_code_msg_verify code' . $otpCode->code ;
         return $user;
     }
@@ -88,7 +89,7 @@ class UserService
         throw_if(!$otp, new ValidationException(__('messages.not_valid_otp_code')));
         return true;
     }
-   
+
     public function getOtp(array $data): ?OtpCode
     {
         return OtpCode::where([

@@ -16,10 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
         then: function () {
             $namespace = 'App\Http\Controllers';
             Route::namespace($namespace . '\\Api\Front')->prefix('api')->middleware('api')->group(base_path('routes/api.php'));
-            Route::namespace($namespace . '\\Api\Admin')->prefix('api/admin')->middleware('api')->group(base_path('routes/admin.php'));
-            Route::namespace($namespace . '\\Api\Driver')->prefix('api/driver')->middleware('api')->group(base_path('routes/driver.php'));
-            Route::namespace($namespace . '\\Api\CallCenter')->prefix('api/call-center')->middleware('api')->group(base_path('routes/call_center.php'));
-            Route::namespace($namespace . '\\Api\DeliveryAdmin')->prefix('api/delivery-admin')->middleware('api')->group(base_path('routes/delivery_admin.php'));
+//            Route::namespace($namespace . '\\Api\Admin')->prefix('api/admin')->middleware('api')->group(base_path('routes/admin.php'));
+//            Route::namespace($namespace . '\\Api\Driver')->prefix('api/driver')->middleware('api')->group(base_path('routes/driver.php'));
+//            Route::namespace($namespace . '\\Api\CallCenter')->prefix('api/call-center')->middleware('api')->group(base_path('routes/call_center.php'));
+//            Route::namespace($namespace . '\\Api\DeliveryAdmin')->prefix('api/delivery-admin')->middleware('api')->group(base_path('routes/delivery_admin.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
