@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('password');
-            
             $table->tinyInteger('is_phone_verified')->default(0);
             $table->rememberToken();
             $table->softDeletes();

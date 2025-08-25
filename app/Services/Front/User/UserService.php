@@ -5,8 +5,8 @@ namespace App\Services\Front\User;
 use App\Exceptions\ValidationException;
 use App\Models\OtpCode;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -79,15 +79,22 @@ class UserService
     public function verifyCode(array $data): ?bool
     {
         $user = User::wherePhone($data['phone'])->whereNull('deleted_at')->first();
-        throw_if(!$user, new ValidationException(__('messages.incorrect_phone')));
+        if (!$user) {
+            throw new ValidationException(__('messages.incorrect_phone'));
+        }
+
         $otp = OtpCode::where([
             'user_id' => $user->id,
             'code' => $data['code'],
             'type' => 'phone'
-        ])->whereDate('expires_at', '>=', now())->first();
+        ])->where('expires_at', '>=', now())->first();
 
-        throw_if(!$otp, new ValidationException(__('messages.not_valid_otp_code')));
+        if (!$otp) {
+            throw new ValidationException(__('messages.not_valid_otp_code'));
+        }
+
         return true;
+
     }
 
     public function getOtp(array $data): ?OtpCode
